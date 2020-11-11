@@ -13,40 +13,40 @@ const reason = {
 const myReason = reason.ACHATS;
 
 class Person {
-    constructor(firstname, lastname, birthday, placeofbirth, address, city, zipcode, reasonId) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+    constructor(firstName, lastName, birthday, placeOfBirth, address, city, zipCode, reasonId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.birthday = birthday;
-        this.placeofbirth = placeofbirth;
+        this.placeOfBirth = placeOfBirth;
         this.address = address;
         this.city = city;
-        this.zipcode = zipcode;
+        this.zipCode = zipCode;
         this.reasonId = reasonId;
     }
 
     fillForm() {
-        $('#field-firstname').value = this.firstname;
-        $('#field-lastname').value = this.lastname;
-        $('#field-birthday').value = this.birthday;
-        $('#field-placeofbirth').value = this.placeofbirth;
-        $('#field-address').value = this.address;
-        $('#field-city').value = this.city;
-        $('#field-zipcode').value = this.zipcode;
+        this.setField('firstname', this.firstName);
+        this.setField('lastname', this.lastName);
+        this.setField('birthday', this.birthday);
+        this.setField('placeofbirth', this.placeOfBirth);
+        this.setField('address', this.address);
+        this.setField('city', this.city);
+        this.setField('zipcode', this.zipCode);
+        this.setField('datesortie', new Date(), true);
+        this.setField('heuresortie', this.getTime(10));
+        this.setCheckbox(this.getReason());
+    }
 
-        let currentDate = new Date();
-        currentDate.setMinutes(currentDate.getMinutes() + 10);
+    getTime(add = 0) {
+        let date = new Date();
+        date.setMinutes(date.getMinutes() + add);
 
-        let currentMinutes = currentDate.getMinutes();
+        let currentMinutes = date.getMinutes();
 
-        if (currentMinutes < 10) {
+        if (currentMinutes < 10)
             currentMinutes = '0' + currentMinutes;
-        }
 
-        let currentTime = currentDate.getHours() + ':' + currentMinutes;
-
-        $('#field-datesortie').valueAsDate = currentDate;
-        $('#field-heuresortie').value = currentTime;
-        $('#checkbox-' + this.getReason()).checked = true;
+        return date.getHours()  + ':' + currentMinutes;
     }
 
     getReason() {
@@ -78,9 +78,19 @@ class Person {
             case 9:
                 return 'enfants';
                 break;
-            default:
-                break;
         }
+    }
+
+    setField(selector, value, date = false) {
+        if(date) {
+            $('#field-' + selector).valueAsDate = value;
+        } else {
+            $('#field-' + selector).value = value;
+        }
+    }
+
+    setCheckbox(selector) {
+        $('#checkbox-' + selector).checked = true;
     }
 }
 
@@ -106,10 +116,10 @@ const pCamille = new Person(
     myReason
 );
 
-let pArray = [pCamille, pEtienne];
+const pArray = [pCamille, pEtienne];
 
-pArray.forEach(element => {
-    element.fillForm();
+pArray.forEach(p => {
+    p.fillForm();
     $('#generate-btn').click();
     $('#cleardata').click();
 });
