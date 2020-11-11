@@ -1,5 +1,19 @@
+const reason = {
+    TRAVAIL : 1,
+    ACHATS : 2,
+    SANTE : 3,
+    FAMILLE : 4,
+    HANDICAP : 5,
+    SPORT_ANIMAUX : 6,
+    CONVOCATION : 7,
+    MISSIONS : 8,
+    ENFANTS : 9
+};
+
+const myReason = reason.ACHATS;
+
 class Person {
-    constructor(firstname, lastname, birthday, placeofbirth, address, city, zipcode) {
+    constructor(firstname, lastname, birthday, placeofbirth, address, city, zipcode, reasonId) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthday = birthday;
@@ -7,6 +21,7 @@ class Person {
         this.address = address;
         this.city = city;
         this.zipcode = zipcode;
+        this.reasonId = reasonId;
     }
 
     fillForm() {
@@ -17,21 +32,55 @@ class Person {
         $('#field-address').value = this.address;
         $('#field-city').value = this.city;
         $('#field-zipcode').value = this.zipcode;
-
-        var currentDate = new Date();
+ 
+        let currentDate = new Date();
         currentDate.setMinutes(currentDate.getMinutes() + 10);
     
-        var currentMinutes = currentDate.getMinutes();
+        let currentMinutes = currentDate.getMinutes();
     
         if (currentMinutes < 10) {
             currentMinutes = '0' + currentMinutes;
         }
     
-        var currentTime = currentDate.getHours() + ':' + currentMinutes;
+        let currentTime = currentDate.getHours() + ':' + currentMinutes;
     
         $('#field-datesortie').valueAsDate = currentDate;
         $('#field-heuresortie').value = currentTime;
-        $('#checkbox-achats').checked = true;
+        $('#checkbox-' + this.getReason()).checked = true;
+    }
+
+    getReason() {
+        switch (this.reasonId) {
+            case 1:
+                return 'travail';
+                break;
+            case 2:
+                return 'achats';
+                break;
+            case 3:
+                return 'sante';
+                break;
+            case 4:
+                return 'famille';
+                break;
+            case 5:
+                return 'handicap';
+                break;
+            case 6:
+                return 'sport_animaux';
+                break;
+            case 7:
+                return 'convocation';
+                break;
+            case 8:
+                return 'missions';
+                break;
+            case 9:
+                return 'enfants';
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -42,7 +91,8 @@ const pEtienne = new Person(
     'Villeneuve Saint Georges',
     '95 A Avenue de la République',
     'Montgeron',
-    '91230'
+    '91230',
+    myReason
 );
 
 const pCamille = new Person(
@@ -52,10 +102,11 @@ const pCamille = new Person(
     'Dourdan',
     '95 A Avenue de la République',
     'Montgeron',
-    '91230'
+    '91230',
+    myReason
 );
 
-var pArray = [pCamille, pEtienne];
+let pArray = [pCamille, pEtienne];
 
 pArray.forEach(element => {
     element.fillForm();
