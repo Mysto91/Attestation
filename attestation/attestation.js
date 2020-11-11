@@ -1,13 +1,13 @@
 const reason = {
-    TRAVAIL: 1,
-    ACHATS: 2,
-    SANTE: 3,
-    FAMILLE: 4,
-    HANDICAP: 5,
-    SPORT_ANIMAUX: 6,
-    CONVOCATION: 7,
-    MISSIONS: 8,
-    ENFANTS: 9
+    TRAVAIL: 0,
+    ACHATS: 1,
+    SANTE: 2,
+    FAMILLE: 3,
+    HANDICAP: 4,
+    SPORT_ANIMAUX: 5,
+    CONVOCATION: 6,
+    MISSIONS: 7,
+    ENFANTS: 8
 };
 
 const myReason = reason.ACHATS;
@@ -46,43 +46,27 @@ class Person {
         if (currentMinutes < 10)
             currentMinutes = '0' + currentMinutes;
 
-        return date.getHours()  + ':' + currentMinutes;
+        return date.getHours() + ':' + currentMinutes;
     }
 
     getReason() {
-        switch (this.reasonId) {
-            case 1:
-                return 'travail';
-                break;
-            case 2:
-                return 'achats';
-                break;
-            case 3:
-                return 'sante';
-                break;
-            case 4:
-                return 'famille';
-                break;
-            case 5:
-                return 'handicap';
-                break;
-            case 6:
-                return 'sport_animaux';
-                break;
-            case 7:
-                return 'convocation';
-                break;
-            case 8:
-                return 'missions';
-                break;
-            case 9:
-                return 'enfants';
-                break;
-        }
+        const reasonArray = [
+            'travail',
+            'achats',
+            'sante',
+            'famille',
+            'handicap',
+            'sport_animaux',
+            'convocation',
+            'missions',
+            'enfants',
+        ];
+
+        return reasonArray[this.reasonId];
     }
 
     setField(selector, value, date = false) {
-        if(date) {
+        if (date) {
             $('#field-' + selector).valueAsDate = value;
         } else {
             $('#field-' + selector).value = value;
