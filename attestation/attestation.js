@@ -1,13 +1,13 @@
 const reason = {
-    TRAVAIL : 1,
-    ACHATS : 2,
-    SANTE : 3,
-    FAMILLE : 4,
-    HANDICAP : 5,
-    SPORT_ANIMAUX : 6,
-    CONVOCATION : 7,
-    MISSIONS : 8,
-    ENFANTS : 9
+    TRAVAIL: 1,
+    ACHATS: 2,
+    SANTE: 3,
+    FAMILLE: 4,
+    HANDICAP: 5,
+    SPORT_ANIMAUX: 6,
+    CONVOCATION: 7,
+    MISSIONS: 8,
+    ENFANTS: 9
 };
 
 const myReason = reason.ACHATS;
@@ -32,18 +32,18 @@ class Person {
         $('#field-address').value = this.address;
         $('#field-city').value = this.city;
         $('#field-zipcode').value = this.zipcode;
- 
+
         let currentDate = new Date();
         currentDate.setMinutes(currentDate.getMinutes() + 10);
-    
+
         let currentMinutes = currentDate.getMinutes();
-    
+
         if (currentMinutes < 10) {
             currentMinutes = '0' + currentMinutes;
         }
-    
+
         let currentTime = currentDate.getHours() + ':' + currentMinutes;
-    
+
         $('#field-datesortie').valueAsDate = currentDate;
         $('#field-heuresortie').value = currentTime;
         $('#checkbox-' + this.getReason()).checked = true;
